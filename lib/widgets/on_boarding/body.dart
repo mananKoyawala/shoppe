@@ -20,6 +20,7 @@ class Body extends StatelessWidget {
         children: [
           Expanded(
             child: simpleButton(
+              context,
               height: 50,
               onTap: () {
                 context.read<OnBoardingViewModel>().onContinue(context);

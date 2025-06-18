@@ -12,9 +12,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<SplashViewModel>().initializeApp(context);
-
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.canvasColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,7 +24,12 @@ class SplashScreen extends StatelessWidget {
             child: Image.asset(AppImages.app_logo),
           ),
           sizeH30(),
-          text(text: AppStrings.app_name, fontSize: 35, fontWeight: 7),
+          text(
+            text: AppStrings.app_name,
+            fontSize: 35,
+            fontWeight: 7,
+            textColor: theme.cardColor,
+          ),
         ],
       ),
     );

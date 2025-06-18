@@ -14,4 +14,6 @@ class AppStrings {
   static const String already_have_account = "I already have an account";
   static const String sign_in = "Sign in";
   static const String sign_up = "Sign up";
+  static const String welcome_message =
+      "Shop easy with Shopee.\nEnjoy a next-gen shopping experience";
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../services/navigatorKey.dart';
+import 'package:shoppe/core/package/utils.dart';
 import 'PackageConstants.dart';
 import 'RippleEffect/RippleEffectContainer.dart';
 
@@ -32,7 +31,8 @@ Widget text({
   );
 }
 
-Widget simpleButton({
+Widget simpleButton(
+  BuildContext context, {
   double? height,
   double? width,
   double? prefixIconGap,
@@ -50,9 +50,9 @@ Widget simpleButton({
     borderRadius: BorderRadius.circular(borderRadius ?? 10),
     child: Container(
       height: height ?? 50,
-      width: width ?? double.infinity,
+      width: width ?? getScreenWidth(context),
       decoration: BoxDecoration(
-        color: backgroundColor ?? Theme.of(navigatorContext).primaryColor,
+        color: backgroundColor ?? Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(borderRadius ?? 10),
         border: border,
       ),
@@ -82,12 +82,14 @@ Widget iconButton({
   required void Function()? onTap,
   double? height,
   Widget? icon,
+  Color? color,
   radius,
 }) {
   return ClickEffect(
     onTap: onTap,
     borderRadius: BorderRadius.circular(radius ?? 30),
-    child: SizedBox(
+    child: Container(
+      color: color,
       height: height ?? 50,
       width: height ?? 50,
       child: icon ?? const Icon(Icons.settings),

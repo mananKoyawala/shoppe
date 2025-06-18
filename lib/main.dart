@@ -21,6 +21,7 @@ class Shoppe extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: true,
       routerConfig: router,
+      themeMode: ThemeMode.light,
       theme: lightTheme(),
       darkTheme: darkTheme(),
     );

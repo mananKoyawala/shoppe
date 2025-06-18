@@ -6,7 +6,7 @@ ThemeData lightTheme() {
     primaryColor: AppColors.primaryColor,
     canvasColor: Colors.white,
     cardColor: Colors.black,
-    // shadowColor: AppColors.greyLight,
+    shadowColor: Colors.black45,
   );
 }
 
@@ -29,6 +29,6 @@ ThemeData darkTheme() {
     primaryColor: AppColors.primaryColor,
     canvasColor: Colors.white12,
     cardColor: Colors.white,
-    // shadowColor: AppColors.greyDark,
+    shadowColor: Colors.white54,
   );
 }
