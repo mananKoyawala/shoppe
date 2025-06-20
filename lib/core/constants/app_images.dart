@@ -7,4 +7,6 @@ class AppImages {
   static const onboarding_asset_2 = "assets/images/onboarding_asset_2.png";
   static const onboarding_asset_3 = "assets/images/onboarding_asset_3.png";
   static const arrow_button = "assets/images/arrow_button.png";
+  static const app_bg = "assets/images/app_bg.svg";
+  static const app_bg_secondary = "assets/images/secondary_bg.svg";
 }

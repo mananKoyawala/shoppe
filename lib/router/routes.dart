@@ -4,6 +4,7 @@ import 'package:shoppe/view/onboarding/on_boarding_screen.dart';
 import 'package:shoppe/view/signin/signin_screen.dart';
 import 'package:shoppe/view/signup/signup_screen.dart';
 import 'package:shoppe/view/splash/splash_screen.dart';
+import 'package:shoppe/view/verify_otp/verify_otp_screen.dart';
 import 'package:shoppe/view/welcome/welcome_screen.dart';
 
 final GoRouter router = GoRouter(
@@ -38,6 +39,17 @@ final GoRouter router = GoRouter(
       path: "/signup",
       name: "signup",
       builder: (context, state) => SignupScreen(),
+    ),
+    GoRoute(
+      path: "/verify",
+      name: "verify",
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        return VerifyOtpScreen(
+          verificationPlatfrom: args["verificationPlatfrom"],
+          isEmailVerification: args["isEmailVerification"],
+        );
+      },
     ),
   ],
 );

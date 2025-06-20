@@ -20,7 +20,7 @@ Color searchColor2 = const Color(0xffF4F6F9);
 
 void printDebug(Object? val) {
   if (kDebugMode) {
-    log(val.toString());
+    log(">>> ${val.toString()}");
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoppe/core/package/PackageConstants.dart';
 import 'package:shoppe/core/package/utils.dart';
 import 'package:shoppe/viewmodels/onboarding_viewmodel.dart';
 

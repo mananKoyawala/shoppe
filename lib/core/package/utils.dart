@@ -1,5 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
+import 'package:shoppe/models/user_profile_model.dart';
 import '../../services/navigatorKey.dart';
 import 'PackageConstants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,6 +35,50 @@ Widget dropDownMenu({
       },
     ),
   );
+}
+
+String maskEmail(String email) {
+  final atIndex = email.indexOf('@');
+  if (atIndex <= 3) return email; // If email is too short, return as is
+
+  final firstPart = email.substring(0, 3);
+  final domain = email.substring(atIndex);
+  return '$firstPart***$domain';
+}
+
+String maskPhone(String phone) {
+  if (phone.length <= 4) return phone; // Not enough digits to mask
+
+  final first2 = phone.substring(0, 2);
+  final last2 = phone.substring(phone.length - 2);
+  return '$first2***$last2';
+}
+
+Future<void> setUSerPreferenceData(UserProfileModel user_profile) async {
+  AppPreferences.setUserId(user_profile.id);
+  AppPreferences.setUserFirstName(user_profile.first_name);
+  AppPreferences.setUserLastName(user_profile.last_name);
+  AppPreferences.setUserFullName(user_profile.full_name);
+  AppPreferences.setUserImageUrl(user_profile.image_url);
+  AppPreferences.setUserGender(user_profile.gender);
+  AppPreferences.setUserCountry(user_profile.country);
+  AppPreferences.setUserState(user_profile.state);
+  AppPreferences.setUserCity(user_profile.city);
+  AppPreferences.setUserAddress(user_profile.address);
+  AppPreferences.setUserEmail(user_profile.email);
+  AppPreferences.setUserPhoneNumber(user_profile.phone_number);
+  AppPreferences.setUserDob(user_profile.dob);
+  AppPreferences.setIsMobileVerified(user_profile.is_mobile_verified);
+  AppPreferences.setIsEmailVerified(user_profile.is_email_verified);
+  AppPreferences.setAccessToken(user_profile.access_token);
+  AppPreferences.setUserLogin(true);
+}
+
+logoutUser(BuildContext context) {
+  // AppPreferences.setIntro(false);
+  // AppPreferences.setUserLogin(false);
+  AppPreferences.clearAllPreferences();
+  context.go("/welcome");
 }
 
 radius(double d) {
@@ -148,12 +194,6 @@ sizeH(double h) {
 
 sizeW(double w) {
   return SizedBox(width: w);
-}
-
-printDebug(Object? s) {
-  if (kDebugMode) {
-    print(">>> $s");
-  }
 }
 
 launchURL(Uri url) async {

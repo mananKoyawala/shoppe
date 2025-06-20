@@ -21,6 +21,10 @@ dependencies:
   fluttertoast: ^8.2.12
   url_launcher: ^6.3.1
   dots_indicator: ^4.0.1
+  flutter_svg: ^2.2.0
+  flutter_easyloading: ^3.0.5
+  flutter_dotenv: ^5.2.1
+  pin_code_fields: ^8.0.1
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -40,6 +44,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
+    - .env
 
   # fonts:
   #   - family: Schyler

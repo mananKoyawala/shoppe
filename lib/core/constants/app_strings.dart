@@ -16,4 +16,25 @@ class AppStrings {
   static const String sign_up = "Sign up";
   static const String welcome_message =
       "Shop easy with Shopee.\nEnjoy a next-gen shopping experience";
+  static const String next = "Next";
+  static const String cancel = "Cancel";
+  static const String login = "Login";
+  static const String login_message = "Good to see you back! 🖤";
+  static const String something_went_wrong = "Something went wrong.";
+  static const String user_login_success = "Login successful";
+  static const String unable_to_login = "Unable to login";
+  static const String verify_otp = "Verify OTP";
+  static const String otp_not_received = "Didn't receive?";
+  static const String resend = "Resend";
+  // static const String next = "";
+
+  // * Textfield hint text
+  static const String enter_otp = "Enter otp";
+  static const String email = "Email";
+  static const String password = "Password";
+
+  // * Textfield error message
+  static const String err_email = "Please enter valid email";
+  static const String err_password = "Please match password criteria ";
+  static const String err_otp = "Please enter 6 digit OTP";
 }
