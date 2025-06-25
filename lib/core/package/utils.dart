@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shoppe/core/package/package_export.dart';
 import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
 import 'package:shoppe/models/user_profile_model.dart';
 import '../../services/navigatorKey.dart';
@@ -52,6 +53,52 @@ String maskPhone(String phone) {
   final first2 = phone.substring(0, 2);
   final last2 = phone.substring(phone.length - 2);
   return '$first2***$last2';
+}
+
+showPasswordCriteria(BuildContext context) {
+  showBottomSheets(
+    context,
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          sizeH15(),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              alignment: Alignment.center,
+              height: 5,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: radius(50),
+              ),
+            ),
+          ),
+          sizeH20(),
+          text(text: "Password requirements:", fontSize: 22, fontWeight: 7),
+          sizeH20(),
+          text(text: "Must be 6 to 10 characters long", fontSize: 18),
+          text(
+            text: "Must include at least one uppercase letter (A-Z)",
+            fontSize: 18,
+          ),
+          text(
+            text: "Must include at least one lowercase letter (a-z)",
+            fontSize: 18,
+          ),
+          text(text: "Must include at least one digit (0-9)", fontSize: 18),
+          text(
+            text: "Must include at least one special character (e.g., @,#,!)",
+            fontSize: 18,
+          ),
+          sizeH30(),
+        ],
+      ),
+    ),
+  );
 }
 
 Future<void> setUserPreferenceData(

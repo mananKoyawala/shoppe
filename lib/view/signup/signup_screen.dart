@@ -39,6 +39,7 @@ class SignupScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 sizeH25(),
+                                Container(key: controller.group1),
                                 // First name
                                 textFormField(
                                   context: context,
@@ -46,7 +47,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.firstNameCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup1,
+                                      ),
                                   hintText: AppStrings.firstName,
                                   scrollPadding: EdgeInsets.only(
                                     top:
@@ -67,7 +71,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.lastNameCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup1,
+                                      ),
                                   hintText: AppStrings.lastName,
                                   scrollPadding: EdgeInsets.only(
                                     top:
@@ -80,8 +87,9 @@ class SignupScreen extends StatelessWidget {
                                         20.0,
                                   ),
                                 ),
-                                // Email
                                 sizeH25(),
+                                Container(key: controller.group2),
+                                // Email
                                 textFormField(
                                   context: context,
                                   theme: theme,
@@ -141,7 +149,24 @@ class SignupScreen extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                sizeH25(),
+                                // Password requirements
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    text(
+                                      text: "Password requirements",
+                                      fontSize: 16,
+                                    ),
+                                    iconButton(
+                                      onTap:
+                                          () => showPasswordCriteria(context),
+                                      icon: Icon(
+                                        Icons.info,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 // Confirm password
                                 Consumer<SignupViewModel>(
                                   builder: (context, value, child) {
@@ -184,6 +209,7 @@ class SignupScreen extends StatelessWidget {
                                   },
                                 ),
                                 sizeH25(),
+                                Container(key: controller.group3),
                                 // Phone number
                                 textFormField(
                                   context: context,
@@ -302,6 +328,8 @@ class SignupScreen extends StatelessWidget {
                                   },
                                 ),
                                 sizeH25(),
+                                Container(key: controller.group4),
+
                                 // Country name
                                 textFormField(
                                   context: context,
@@ -309,7 +337,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.countryCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup4,
+                                      ),
                                   hintText: AppStrings.country,
                                   scrollPadding: EdgeInsets.only(
                                     top:
@@ -330,7 +361,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.stateCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup4,
+                                      ),
                                   hintText: AppStrings.state,
                                   scrollPadding: EdgeInsets.only(
                                     top:
@@ -344,6 +378,7 @@ class SignupScreen extends StatelessWidget {
                                   ),
                                 ),
                                 sizeH25(),
+                                Container(key: controller.group5),
                                 // City name
                                 textFormField(
                                   context: context,
@@ -351,7 +386,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.cityCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup5,
+                                      ),
                                   hintText: AppStrings.city,
                                   scrollPadding: EdgeInsets.only(
                                     top:
@@ -373,7 +411,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.addressCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup5,
+                                      ),
                                   hintText: AppStrings.address,
                                   scrollPadding: EdgeInsets.only(
                                     top:
@@ -387,6 +428,7 @@ class SignupScreen extends StatelessWidget {
                                   ),
                                 ),
                                 sizeH25(),
+                                Container(key: controller.group6),
                                 // DOB
                                 textFormField(
                                   onTap: () => controller.pickDate(context),
@@ -396,7 +438,10 @@ class SignupScreen extends StatelessWidget {
                                   controller: controller.dobCtr,
                                   textInputType: TextInputType.text,
                                   funValidate:
-                                      (val) => controller.fieldIsRequired(val),
+                                      (val) => controller.fieldIsRequired(
+                                        val,
+                                        controller.scrollToGroup6,
+                                      ),
                                   hintText: AppStrings.dob,
                                   suffixIcon: Icon(
                                     Icons.date_range,

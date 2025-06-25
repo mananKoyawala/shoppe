@@ -4,8 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../services/navigatorKey.dart';
-
 Color white = Colors.white;
 Color black = Colors.black;
 Color transparent = Colors.transparent;
@@ -229,14 +227,15 @@ MaterialColor createMaterialColor(Color color) {
   return MaterialColor(color.value, swatch);
 }
 
-showBottomSheets(Widget widget) {
+showBottomSheets(BuildContext context, Widget widget) {
   showModalBottomSheet(
     isScrollControlled: true,
     enableDrag: true,
+    backgroundColor: Colors.white,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
     ),
-    context: navigatorContext,
+    context: context,
     builder: (context) => widget,
   );
 }

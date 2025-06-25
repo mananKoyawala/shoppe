@@ -72,10 +72,24 @@ class SigninScreen extends StatelessWidget {
                             );
                           },
                         ),
+                        // Password requirements
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            text(text: "Password requirements", fontSize: 16),
+                            iconButton(
+                              onTap: () => showPasswordCriteria(context),
+                              icon: Icon(
+                                Icons.info,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
-                  sizeH50(),
+                  sizeH20(),
                   Visibility(
                     visible: MediaQuery.of(context).viewInsets.bottom == 0,
                     child: Column(
