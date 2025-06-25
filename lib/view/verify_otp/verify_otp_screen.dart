@@ -107,7 +107,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                           controller: controller.otpCtr,
                           textInputType: TextInputType.number,
                           textInputAction: TextInputAction.done,
-                          funValidate: (val) => controller.validateEmail(val),
+                          funValidate: (val) => controller.validateOTP(val),
                           onlyNumber: true,
                           maxLength: 6,
                           hintText: AppStrings.enter_otp,

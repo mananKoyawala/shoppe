@@ -12,10 +12,13 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      color: theme.primaryColor,
       width: getScreenWidth(context),
       height: 65,
       alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: radius(10),
+        color: theme.primaryColor,
+      ),
       child: Row(
         children: [
           Expanded(

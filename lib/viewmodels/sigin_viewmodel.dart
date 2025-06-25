@@ -9,7 +9,7 @@ import 'package:shoppe/models/user_login_model.dart';
 import 'package:shoppe/services/login_service.dart';
 import 'package:shoppe/viewmodels/verify_otp_viewmodel.dart';
 
-class SiginViewModel extends ChangeNotifier {
+class SigninViewModel extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
   final emailCtr = TextEditingController();
   final passCtr = TextEditingController();

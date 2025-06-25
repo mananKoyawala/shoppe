@@ -35,6 +35,7 @@ Widget textFormField({
   VoidCallback? onTap,
   Color? backgroundColor,
   bool? onlyNumber,
+  EdgeInsets? scrollPadding,
 }) {
   double bottomInsets = MediaQuery.of(context).viewInsets.bottom;
   return TextFormField(
@@ -49,7 +50,8 @@ Widget textFormField({
     cursorColor: cursorColor ?? black,
     obscureText: obsecureText ?? false,
     keyboardType: textInputType ?? TextInputType.text,
-    scrollPadding: EdgeInsets.only(bottom: bottomInsets + 65.0),
+    scrollPadding:
+        scrollPadding ?? EdgeInsets.only(bottom: bottomInsets + 65.0),
     onChanged: onChanged,
     maxLines: maxLines,
     inputFormatters:

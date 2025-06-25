@@ -8,6 +8,8 @@ class Endpoints {
         return "$_userRoute/login";
       case EndpointType.UserRegister:
         return "$_userRoute/register";
+      case EndpointType.UserProfileDetails:
+        return "$_userRoute/profile";
       case EndpointType.VerifyUserEmailOTP:
         return "$_verifyRoute/email-otp";
       case EndpointType.ResendUserEmailOTP:
@@ -19,6 +21,7 @@ class Endpoints {
 enum EndpointType {
   UserLogin,
   UserRegister,
+  UserProfileDetails,
   VerifyUserEmailOTP,
   ResendUserEmailOTP,
 }

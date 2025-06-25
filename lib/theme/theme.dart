@@ -7,6 +7,11 @@ ThemeData lightTheme() {
     canvasColor: Colors.white,
     cardColor: Colors.black,
     shadowColor: Colors.black45,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: AppColors.primaryColor,
+      primary: AppColors.primaryColor,
+    ),
+    useMaterial3: true, // Or true, depending on your design
   );
 }
 
@@ -30,5 +35,10 @@ ThemeData darkTheme() {
     canvasColor: Colors.white12,
     cardColor: Colors.white,
     shadowColor: Colors.white54,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: AppColors.primaryColor,
+      primary: AppColors.primaryColor,
+    ),
+    useMaterial3: true, // Or true, depending on your design
   );
 }

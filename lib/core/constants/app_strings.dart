@@ -19,7 +19,9 @@ class AppStrings {
   static const String next = "Next";
   static const String cancel = "Cancel";
   static const String login = "Login";
+  static const String signup = "Signup";
   static const String login_message = "Good to see you back! 🖤";
+  static const String signup_message = "Welcome aboard! Glad to have you 🖤";
   static const String something_went_wrong = "Something went wrong.";
   static const String user_login_success = "Login successful";
   static const String unable_to_login = "Unable to login";
@@ -32,9 +34,28 @@ class AppStrings {
   static const String enter_otp = "Enter otp";
   static const String email = "Email";
   static const String password = "Password";
+  static const String conPwd = "Confirm Password";
+  static const String firstName = "First name";
+  static const String lastName = "Last name";
+  static const String gender = "Select gender";
+  static const String male = "Male";
+  static const String female = "Female";
+  static const String country = "Country";
+  static const String state = "State";
+  static const String city = "City";
+  static const String address = "Address";
+  static const String phone_number = "Phone number";
+  static const String dob = "Date of birth";
+  static const String pin_code = "Pincode";
 
   // * Textfield error message
   static const String err_email = "Please enter valid email";
   static const String err_password = "Please match password criteria ";
   static const String err_otp = "Please enter 6 digit OTP";
+  static const String err_field_required = "Please complete this field";
+  static const String err_confrim_password =
+      "Password and confirm password must be the same";
+  static const String err_pin_code = "Please enter 6 digit pincode";
+  static const String err_phone_number = "Please enter 10 digit phone number";
+  static const String err_select_gender = "Please select gender";
 }

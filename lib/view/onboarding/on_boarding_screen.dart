@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shoppe/core/constants/app_images.dart';
 import 'package:shoppe/core/constants/app_strings.dart';
+import 'package:shoppe/core/package/package_export.dart';
+import 'package:shoppe/core/package/utils.dart';
 import 'package:shoppe/models/on_boarding_model.dart';
 import 'package:shoppe/widgets/on_boarding/body.dart';
 import 'package:shoppe/widgets/on_boarding/dot_indicator.dart';
@@ -50,7 +52,8 @@ class OnBoardingScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Body(), // shows title and sub-title
+            CP(h: 16, child: Body()), // shows title and sub-title
+            sizeH10(),
           ],
         ),
       ),

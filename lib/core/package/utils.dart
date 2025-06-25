@@ -54,7 +54,10 @@ String maskPhone(String phone) {
   return '$first2***$last2';
 }
 
-Future<void> setUSerPreferenceData(UserProfileModel user_profile) async {
+Future<void> setUserPreferenceData(
+  UserProfileModel user_profile, {
+  bool setAccessToken = true,
+}) async {
   AppPreferences.setUserId(user_profile.id);
   AppPreferences.setUserFirstName(user_profile.first_name);
   AppPreferences.setUserLastName(user_profile.last_name);
@@ -70,13 +73,13 @@ Future<void> setUSerPreferenceData(UserProfileModel user_profile) async {
   AppPreferences.setUserDob(user_profile.dob);
   AppPreferences.setIsMobileVerified(user_profile.is_mobile_verified);
   AppPreferences.setIsEmailVerified(user_profile.is_email_verified);
-  AppPreferences.setAccessToken(user_profile.access_token);
+  if (setAccessToken) {
+    AppPreferences.setAccessToken(user_profile.access_token);
+  }
   AppPreferences.setUserLogin(true);
 }
 
 logoutUser(BuildContext context) {
-  // AppPreferences.setIntro(false);
-  // AppPreferences.setUserLogin(false);
   AppPreferences.clearAllPreferences();
   context.go("/welcome");
 }

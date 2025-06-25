@@ -10,7 +10,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
   final otpCtr = TextEditingController();
 
-  validateEmail(String? val) {
+  validateOTP(String? val) {
     if (val == null || !val.validateOTP) {
       return AppStrings.err_otp;
     }
@@ -42,7 +42,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
           UserProfileModel user_profile = UserProfileModel.fromJson(
             response?.data["data"]["user_profile"],
           );
-          await setUSerPreferenceData(user_profile);
+          await setUserPreferenceData(user_profile);
           if (context.mounted) context.go("/home");
         }
       }
@@ -51,6 +51,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
   }
 
   void onResendOTP(email) async {
+    otpCtr.clear();
     AppLoader.showLoader();
     final response = await VerifyOtpService.resendEmailOTP(email);
     if (response?.statusCode == 200) {

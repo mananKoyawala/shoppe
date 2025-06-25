@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoppe/core/constants/app_colors.dart';
 import 'package:shoppe/core/constants/app_strings.dart';
 import 'package:shoppe/core/package/PackageConstants.dart';
 import 'package:shoppe/core/package/text.dart';
@@ -14,7 +15,7 @@ class SigninScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<SiginViewModel>();
+    final controller = context.read<SigninViewModel>();
     final theme = Theme.of(context);
     return DismissLoader(
       onBack: () => controller.resetAll(),
@@ -46,7 +47,7 @@ class SigninScreen extends StatelessWidget {
                           hintText: AppStrings.email,
                         ),
                         sizeH25(),
-                        Consumer<SiginViewModel>(
+                        Consumer<SigninViewModel>(
                           builder: (context, value, child) {
                             return textFormField(
                               context: context,
@@ -65,7 +66,7 @@ class SigninScreen extends StatelessWidget {
                                   value.isObsecure
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.black,
+                                  color: AppColors.primaryColor,
                                 ),
                               ),
                             );

@@ -20,3 +20,17 @@ extension OTPValidator on String {
     return otpRegex.hasMatch(this);
   }
 }
+
+extension PincodeValidator on String {
+  bool get validatePincode {
+    final pinCodeRegex = RegExp(r"^\d{6}$");
+    return pinCodeRegex.hasMatch(this);
+  }
+}
+
+extension PhoneNumberValidator on String {
+  bool get validatePhoneNumber {
+    final phoneNumberRegex = RegExp(r"^\d{10}$");
+    return phoneNumberRegex.hasMatch(this);
+  }
+}
