@@ -48,6 +48,13 @@ class AppStrings {
   static const String dob = "Date of birth";
   static const String pin_code = "Pincode";
 
+  // * Dashboard
+  static const String home = "Home";
+  static const String category = "Category";
+  static const String cart = "Cart";
+  static const String bookmark = "Bookmark";
+  static const String profile = "Profile";
+
   // * Textfield error message
   static const String err_email = "Please enter valid email";
   static const String err_password = "Please match password criteria ";

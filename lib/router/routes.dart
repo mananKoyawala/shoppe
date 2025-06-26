@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:shoppe/view/dashboard/dashboard_screen.dart';
 import 'package:shoppe/view/home/home_screen.dart';
 import 'package:shoppe/view/onboarding/on_boarding_screen.dart';
 import 'package:shoppe/view/signin/signin_screen.dart';
@@ -50,6 +51,11 @@ final GoRouter router = GoRouter(
           isEmailVerification: args["isEmailVerification"],
         );
       },
+    ),
+    GoRoute(
+      path: "/dashboard",
+      name: "dashboard",
+      builder: (context, state) => DashboardScreen(),
     ),
   ],
 );

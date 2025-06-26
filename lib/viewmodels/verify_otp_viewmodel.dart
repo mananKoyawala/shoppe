@@ -43,7 +43,7 @@ class VerifyOtpViewModel extends ChangeNotifier {
             response?.data["data"]["user_profile"],
           );
           await setUserPreferenceData(user_profile);
-          if (context.mounted) context.go("/home");
+          if (context.mounted) context.go("/dashboard");
         }
       }
       AppLoader.dismissLoader();

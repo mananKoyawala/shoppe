@@ -17,7 +17,7 @@ class OnBoardingViewModel extends ChangeNotifier {
     if (!await AppPreferences.getUserLogin()) {
       if (context.mounted) context.go("/welcome");
     } else {
-      if (context.mounted) context.go("/home");
+      if (context.mounted) context.go("/dashboard");
     }
   }
 }

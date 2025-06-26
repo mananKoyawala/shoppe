@@ -76,7 +76,7 @@ class SigninViewModel extends ChangeNotifier {
       );
       await _setPreferenceData(userData);
       toast(AppStrings.user_login_success);
-      if (context.mounted) context.go("/home");
+      if (context.mounted) context.go("/dashboard");
       printDebug(userData.user_profile.access_token);
     } catch (e) {
       toast(AppStrings.unable_to_login);

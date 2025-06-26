@@ -17,7 +17,7 @@ class SplashViewModel extends ChangeNotifier {
           context,
         );
         if (dataLoaded) {
-          if (context.mounted) context.go("/home");
+          if (context.mounted) context.go("/dashboard");
         } else {
           if (context.mounted) context.go("/signin");
         }
