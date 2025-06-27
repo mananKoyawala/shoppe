@@ -1,3 +1,4 @@
+import 'package:dio/src/response.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shoppe/core/constants/loader.dart';
 import 'package:shoppe/core/package/package_export.dart';
@@ -34,17 +35,24 @@ class VerifyOtpViewModel extends ChangeNotifier {
   ) async {
     if (formKey.currentState!.validate()) {
       AppLoader.showLoader();
-      final response = await VerifyOtpService.verifyOTP(otpCtr.text.trim());
-
+      final Response? response;
+      if (isEmailVerification) {
+        response = await VerifyOtpService.verifyEmailOTP(otpCtr.text.trim());
+      } else {
+        response = await VerifyOtpService.verifyPhoneOTP(otpCtr.text.trim());
+      }
       if (response?.statusCode == 200) {
         if (response?.data["data"]["otp_verification"]) {
-          toast("Email is verified");
+          isEmailVerification
+              ? toast("Email is verified")
+              : toast("Phone number is verified");
           UserProfileModel user_profile = UserProfileModel.fromJson(
             response?.data["data"]["user_profile"],
           );
           await setUserPreferenceData(user_profile);
           if (context.mounted) context.go("/dashboard");
         }
+        resetAll();
       }
       AppLoader.dismissLoader();
     }

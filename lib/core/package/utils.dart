@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shoppe/core/package/package_export.dart';
 import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
 import 'package:shoppe/models/user_profile_model.dart';
 import '../../services/navigatorKey.dart';
-import 'PackageConstants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget dropDownMenu({
@@ -118,6 +116,7 @@ Future<void> setUserPreferenceData(
   AppPreferences.setUserEmail(user_profile.email);
   AppPreferences.setUserPhoneNumber(user_profile.phone_number);
   AppPreferences.setUserDob(user_profile.dob);
+  AppPreferences.setUserPinCode(user_profile.pin_code);
   AppPreferences.setIsMobileVerified(user_profile.is_mobile_verified);
   AppPreferences.setIsEmailVerified(user_profile.is_email_verified);
   if (setAccessToken) {

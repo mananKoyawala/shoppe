@@ -6,15 +6,17 @@ class DismissLoader extends StatelessWidget {
     super.key,
     required this.child,
     this.onBack = _emptyCallback,
+    this.canPop,
   });
   final Widget child;
   final VoidCallback onBack;
+  final bool? canPop;
 
   static void _emptyCallback() {}
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: true,
+      canPop: canPop ?? true,
       onPopInvokedWithResult: (didPop, result) {
         AppLoader.dismissLoader();
         onBack();

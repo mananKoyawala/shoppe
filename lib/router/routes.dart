@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:shoppe/view/dashboard/dashboard_screen.dart';
 import 'package:shoppe/view/home/home_screen.dart';
+import 'package:shoppe/view/profile/edit_profile_screen.dart';
 import 'package:shoppe/view/onboarding/on_boarding_screen.dart';
 import 'package:shoppe/view/signin/signin_screen.dart';
 import 'package:shoppe/view/signup/signup_screen.dart';
@@ -56,6 +57,12 @@ final GoRouter router = GoRouter(
       path: "/dashboard",
       name: "dashboard",
       builder: (context, state) => DashboardScreen(),
+    ),
+
+    GoRoute(
+      path: "/editprofile",
+      name: "editprofile",
+      builder: (context, state) => EditProfileScreen(),
     ),
   ],
 );

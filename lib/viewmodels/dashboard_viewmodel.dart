@@ -21,8 +21,8 @@ class DashboardViewModel extends ChangeNotifier {
 
   resetAll() {
     index = 0;
+    pageController.jumpToPage(0);
     showCart = false;
-    pageController.dispose();
     notifyListeners();
   }
 }

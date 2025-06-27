@@ -28,6 +28,13 @@ class AppStrings {
   static const String verify_otp = "Verify OTP";
   static const String otp_not_received = "Didn't receive?";
   static const String resend = "Resend";
+  static const String logout = "Logout";
+  static const String about_me = "About me";
+  static const String edit = "Edit";
+  static const String edit_profile = "Edit profile";
+  static const String edit_profile_title = "Keep us updated about you";
+  static const String update_profile = "Update profile";
+  static const String verify = "Verify";
   // static const String next = "";
 
   // * Textfield hint text

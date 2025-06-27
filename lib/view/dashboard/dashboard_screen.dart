@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:shoppe/core/constants/app_colors.dart';
 import 'package:shoppe/core/package/package_export.dart';
+import 'package:shoppe/view/bookmark/bookmark_screen.dart';
+import 'package:shoppe/view/cart/cart_screen.dart';
+import 'package:shoppe/view/category/category_screen.dart';
+import 'package:shoppe/view/home/home_screen.dart';
+import 'package:shoppe/view/profile/profile_screen.dart';
 import 'package:shoppe/viewmodels/dashboard_viewmodel.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
@@ -101,13 +106,14 @@ class DashboardScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SafeArea(
         child: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: controller.pageController,
           children: const [
-            Center(child: Text(AppStrings.home)),
-            Center(child: Text(AppStrings.category)),
-            Center(child: Text(AppStrings.cart)),
-            Center(child: Text(AppStrings.bookmark)),
-            Center(child: Text(AppStrings.profile)),
+            HomeScreen(),
+            CategoryScreen(),
+            CartScreen(),
+            BookmarkScreen(),
+            ProfileScreen(),
           ],
         ),
       ),

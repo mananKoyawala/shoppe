@@ -60,10 +60,10 @@ class ApiRepository {
   static Future<Response> delete(
     String endpoint, {
     Map<String, dynamic>? jsonBody,
-    bool userToken = false,
+    bool setBarer = false,
     bool setTempToken = false,
   }) async {
-    await _setBearerToken(userToken, setTempToken);
+    await _setBearerToken(setBarer, setTempToken);
     return await _dio.delete(endpoint, data: jsonBody);
   }
 

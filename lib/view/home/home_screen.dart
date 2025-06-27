@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:flutter/services.dart';
 import 'package:shoppe/core/constants/app_colors.dart';
-import 'package:shoppe/core/package/text.dart';
-import 'package:shoppe/core/package/utils.dart';
-import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
+import 'package:shoppe/core/package/package_export.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,31 +10,39 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: theme.canvasColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            child: text(text: "Home screen, ${getUserName()}", fontSize: 30),
+    DateTime? _lastBackPressed;
+    return DismissLoader(
+      canPop: false,
+      onBack: () {
+        if (_lastBackPressed == null ||
+            DateTime.now().difference(_lastBackPressed!) >
+                const Duration(seconds: 5)) {
+          // Notify user to press back again within the time limit
+          toast("Press back again to exit");
+          _lastBackPressed = DateTime.now();
+        } else {
+          // If back is pressed again within 5 seconds, allow navigation
+          if (Platform.isAndroid) {
+            // Exit app for Android
+            SystemNavigator.pop();
+          } else if (Platform.isIOS) {
+            // Exit app for iOS
+            exit(0);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: theme.canvasColor,
+        body: Container(
+          alignment: Alignment.center,
+          child: text(
+            text: "Home Screen",
+            fontSize: 20,
+            textColor: AppColors.primaryColor,
+            fontWeight: 5,
           ),
-          sizeH20(),
-          simpleButton(
-            backgroundColor: AppColors.primaryColor,
-            width: 150,
-            context,
-            onTap: () {
-              logoutUser(context);
-            },
-            title: text(text: "Logout", fontSize: 18, textColor: Colors.white),
-          ),
-        ],
+        ),
       ),
     );
-  }
-
-  getUserName() {
-    return AppPreferences.getUserFullName();
   }
 }

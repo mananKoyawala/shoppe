@@ -2,10 +2,13 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:shoppe/core/constants/loader.dart';
 import 'package:shoppe/core/package/package_export.dart';
+import 'package:shoppe/core/package/utils.dart';
 import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
-import 'package:shoppe/services/register_service.dart';
+import 'package:shoppe/models/user_profile_model.dart';
+import 'package:shoppe/services/user_profile_service.dart';
+import 'package:shoppe/services/verify_otp_service.dart';
 
-class SignupViewModel extends ChangeNotifier {
+class EditProfileViewModel extends ChangeNotifier {
   String? selectedGender;
   final List<String> genders = ['Male', 'Female', 'Other'];
 
@@ -14,7 +17,28 @@ class SignupViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // * scroll form to error
+  Future<void> pickDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      // initialDate: DateTime.now(), // Default to today
+      firstDate: DateTime(
+        2000,
+        1,
+        1,
+      ), // Adjust as needed (earliest selectable date)
+      lastDate: DateTime(
+        2009,
+        12,
+        31,
+      ), // Restrict to today (cannot pick future dates)
+    );
+
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      dobCtr.text = formattedDate; // Set formatted date to TextField
+    }
+  }
+
   final group1 = GlobalKey<FormState>();
   final group2 = GlobalKey<FormState>();
   final group3 = GlobalKey<FormState>();
@@ -40,34 +64,12 @@ class SignupViewModel extends ChangeNotifier {
   final phoneNumberCtr = TextEditingController();
   final dobCtr = TextEditingController();
   final pincodeCtr = TextEditingController();
-  final passwordCtr = TextEditingController();
-  final confirmPwdCtr = TextEditingController();
-  bool isObsecure = true;
-  bool isObsecureConPwd = true;
 
-  Future<void> pickDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      // initialDate: DateTime.now(), // Default to today
-      firstDate: DateTime(
-        2000,
-        1,
-        1,
-      ), // Adjust as needed (earliest selectable date)
-      lastDate: DateTime(
-        2009,
-        12,
-        31,
-      ), // Restrict to today (cannot pick future dates)
-    );
-
-    if (pickedDate != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-      dobCtr.text = formattedDate; // Set formatted date to TextField
-    }
+  onCancel(BuildContext context) async {
+    context.pop();
   }
 
-  void onNext(BuildContext context) async {
+  onUpdateClicked(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       AppLoader.showLoader();
 
@@ -82,7 +84,6 @@ class SignupViewModel extends ChangeNotifier {
       String phoneNumber = phoneNumberCtr.text.trim();
       String dob = dobCtr.text.trim();
       String pincode = pincodeCtr.text.trim();
-      String password = passwordCtr.text.trim();
 
       printDebug("First name $firstName");
       printDebug("Last name $lastName");
@@ -95,9 +96,8 @@ class SignupViewModel extends ChangeNotifier {
       printDebug("Phone number $phoneNumber");
       printDebug("Dob $dob");
       printDebug("Pincode $pincode");
-      printDebug("Password $password");
 
-      final response = await RegisterService.userRegister(
+      final response = await UserProfileService.editUserProfileData(
         firstName,
         lastName,
         gender,
@@ -105,35 +105,30 @@ class SignupViewModel extends ChangeNotifier {
         state,
         city,
         address,
-        email,
-        phoneNumber,
         dob,
         pincode,
-        password,
       );
-
-      if (response != null) {
-        if (response.statusCode == 200) {
-          toast("Please verify your email");
-          printDebug(response.data["data"]["access_token"]);
-          await AppPreferences.setTempAccessToken(
-            response.data["data"]["access_token"],
+      printDebug("1");
+      if (response != null && response.statusCode == 200) {
+        printDebug("2");
+        if (response.data["data"]["user_updated"]) {
+          printDebug("3");
+          UserProfileModel user_profile = UserProfileModel.fromJson(
+            response.data["data"]["user_profile"],
           );
-          if (context.mounted) {
-            context.push(
-              "/verify",
-              extra: {
-                'isEmailVerification': true,
-                'verificationPlatfrom': email,
-              },
-            );
-          }
+          printDebug("4");
+          printDebug(user_profile.gender);
+          await setUserPreferenceData(user_profile, setAccessToken: false);
+          printDebug("5");
+          toast("Profile upadated");
+          if (context.mounted) context.pop();
+        } else {
+          printDebug("6");
+          toast("Unable to update profile");
         }
-
-        if (response.statusCode == 409) {
-          printDebug(">>> Already is use");
-        }
+        printDebug("7");
       }
+      printDebug("8");
 
       AppLoader.dismissLoader();
     } else {
@@ -141,31 +136,66 @@ class SignupViewModel extends ChangeNotifier {
     }
   }
 
-  void onCancel(BuildContext context) {
-    context.pop();
-    resetAll();
+  onVerifyEmail(BuildContext context) async {
+    final response = await VerifyOtpService.resendEmailOTP(
+      emailCtr.text.trim(),
+    );
+
+    if (response?.statusCode == 200) {
+      await AppPreferences.setTempAccessToken(
+        response?.data["data"]["access_token"],
+      );
+
+      printDebug(await AppPreferences.getTempAccessToken());
+      if (context.mounted) {
+        context.push(
+          "/verify",
+          extra: {
+            'isEmailVerification': true,
+            'verificationPlatfrom': emailCtr.text.trim(),
+          },
+        );
+        toast("OTP sent");
+      }
+    }
   }
 
-  void resetAll() {
-    isObsecure = true;
-    isObsecureConPwd = true;
-    selectedGender = null;
-    firstNameCtr.clear();
-    lastNameCtr.clear();
-    countryCtr.clear();
-    stateCtr.clear();
-    cityCtr.clear();
-    addressCtr.clear();
-    emailCtr.clear();
-    phoneNumberCtr.clear();
-    dobCtr.clear();
-    pincodeCtr.clear();
-    passwordCtr.clear();
-    confirmPwdCtr.clear();
-    resetFlags();
+  onVerifyMobile(BuildContext context) async {
+    final response = await VerifyOtpService.resendPhoneOTP(
+      phoneNumberCtr.text.trim(),
+    );
+
+    if (response?.statusCode == 200) {
+      await AppPreferences.setTempAccessToken(
+        response?.data["data"]["access_token"],
+      );
+
+      printDebug(await AppPreferences.getTempAccessToken());
+      if (context.mounted) {
+        context.push(
+          "/verify",
+          extra: {
+            'isEmailVerification': false,
+            'verificationPlatfrom': phoneNumberCtr.text.trim(),
+          },
+        );
+        toast("OTP sent");
+      }
+    }
   }
 
-  // * validation
+  void setupUserData() {
+    firstNameCtr.text = AppPreferences.getUserFirstName();
+    lastNameCtr.text = AppPreferences.getUserLastName();
+    countryCtr.text = AppPreferences.getUserCountry();
+    stateCtr.text = AppPreferences.getUserState();
+    cityCtr.text = AppPreferences.getUserCity();
+    addressCtr.text = AppPreferences.getUserAddress();
+    emailCtr.text = AppPreferences.getUserEmail();
+    phoneNumberCtr.text = AppPreferences.getUserPhoneNumber();
+    dobCtr.text = AppPreferences.getUserDob();
+    pincodeCtr.text = AppPreferences.getUserPinCode();
+  }
 
   fieldIsRequired(String? val, VoidCallback fn) {
     if (val == null || val.isEmpty) {
@@ -179,24 +209,6 @@ class SignupViewModel extends ChangeNotifier {
     if (val == null || !val.validEmail) {
       scrollToGroup2();
       return AppStrings.err_email;
-    }
-    return null;
-  }
-
-  validatePassword(String? val) {
-    if (val == null || !val.validatePassword) {
-      scrollToGroup2();
-      return AppStrings.err_password;
-    }
-    return null;
-  }
-
-  validateConfirmPassword(String? val) {
-    if (passwordCtr.text.isEmpty) {
-      return null;
-    } else if (val == null || val != passwordCtr.text) {
-      scrollToGroup2();
-      return AppStrings.err_confrim_password;
     }
     return null;
   }
@@ -225,14 +237,18 @@ class SignupViewModel extends ChangeNotifier {
     return null;
   }
 
-  toggleObsecure() {
-    isObsecure = !isObsecure;
-    notifyListeners();
-  }
-
-  toggleObsecureConPwd() {
-    isObsecureConPwd = !isObsecureConPwd;
-    notifyListeners();
+  void resetAll() {
+    selectedGender = null;
+    firstNameCtr.clear();
+    lastNameCtr.clear();
+    countryCtr.clear();
+    stateCtr.clear();
+    cityCtr.clear();
+    addressCtr.clear();
+    emailCtr.clear();
+    phoneNumberCtr.clear();
+    dobCtr.clear();
+    pincodeCtr.clear();
   }
 
   void scrollToGroup1() {
