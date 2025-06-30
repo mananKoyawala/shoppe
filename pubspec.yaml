@@ -29,6 +29,8 @@ dependencies:
   stylish_bottom_bar: ^1.1.1
   shimmer: ^3.0.0
   adaptive_dialog: ^2.4.2
+  image_picker: ^1.1.2
+  http_parser: ^4.1.2
 
 flutter_launcher_icons:
   android: "launcher_icon"

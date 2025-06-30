@@ -1,17 +1,47 @@
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shoppe/core/constants/app_colors.dart';
+import 'package:shoppe/core/constants/loader.dart';
 import 'package:shoppe/core/package/package_export.dart';
 import 'package:shoppe/core/package/utils.dart';
 import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
 import 'package:shoppe/models/user_profile_model.dart';
+import 'package:shoppe/providers/profile_image_notifer.dart';
 import 'package:shoppe/services/user_profile_service.dart';
 import 'package:shoppe/viewmodels/dashboard_viewmodel.dart';
 
 class UserProfileViewModel extends ChangeNotifier {
   // * loading profile data
   bool loading = true;
+
+  onUploadImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? pickedFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final image = File(pickedFile.path);
+      printDebug(image);
+      // TODO : check jpg, jpeg or png
+      final response = await UserProfileService.uploadUserProfileImage(image);
+      if (response != null && response.statusCode == 200) {
+        if (response.data["data"]["user_image_updated"]) {
+          String url = response.data["data"]["image_url"];
+          await AppPreferences.setUserImageUrl(url);
+          printDebug(url);
+          userImageNotifier.value = url;
+          toast("Image uploaded");
+        } else {
+          toast("Failed to upload image");
+        }
+      }
+    }
+  }
 
   loadProfileData(BuildContext context) async {
     bool isLoaded = await getUserProfileDetails(context);
@@ -79,12 +109,14 @@ class UserProfileViewModel extends ChangeNotifier {
     );
 
     if (result == true && context.mounted) {
+      AppLoader.showLoader();
       final res = await UserProfileService.deleteUser();
       if (res != null && res.statusCode == 200 && context.mounted) {
         context.read<DashboardViewModel>().resetAll();
         logoutUser(context);
         toast(AppStrings.account_deleted);
       }
+      AppLoader.dismissLoader();
     }
   }
 

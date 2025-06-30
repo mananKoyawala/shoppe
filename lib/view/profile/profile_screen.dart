@@ -8,6 +8,7 @@ import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
 import 'package:shoppe/viewmodels/dashboard_viewmodel.dart';
 import 'package:shoppe/viewmodels/user_profile_viewmodel.dart';
 import 'package:shoppe/widgets/profile/profile_shimmer.dart';
+import 'package:shoppe/widgets/profile/user_profile_image.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -33,7 +34,8 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class ProfileArea extends StatelessWidget {
-  const ProfileArea({super.key});
+  ProfileArea({super.key});
+  double height = 150;
   @override
   Widget build(BuildContext context) {
     final controller = context.read<UserProfileViewModel>();
@@ -60,11 +62,7 @@ class ProfileArea extends StatelessWidget {
                 ),
               ),
             ),
-            CircleAvatar(
-              radius: 65,
-              backgroundColor: Colors.grey.shade400,
-              child: Icon(Icons.person, color: Colors.white, size: 80),
-            ),
+            UserProfileImage(height: height, controller: controller),
             sizeH25(),
             text(
               text: AppPreferences.getUserFullName(),

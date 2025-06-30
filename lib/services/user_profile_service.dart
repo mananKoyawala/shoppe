@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:shoppe/core/package/package_export.dart';
 
 class UserProfileService {
@@ -61,6 +64,41 @@ class UserProfileService {
   }
 
   // * Update user profile image
+  static Future<Response?> uploadUserProfileImage(File imageFile) async {
+    try {
+      if (imageFile.path.isEmpty) {
+        throw Exception("Image file path is empty");
+      }
+
+      String? mime = getMimeType(imageFile.path);
+      final parts = mime!.split('/');
+      final contentType = MediaType(parts[0], parts[1]);
+
+      String fileName = imageFile.path.split('/').last;
+      FormData formData = FormData.fromMap({
+        "image": await MultipartFile.fromFile(
+          imageFile.path,
+          filename: fileName,
+          contentType: contentType,
+        ),
+      });
+
+      final response = await ApiRepository.post(
+        Endpoints.getEndpoint(EndpointType.UpdateUserProfileImage),
+        setBarer: true,
+        formDataBody: formData,
+      );
+
+      return response;
+    } on DioException catch (e) {
+      toast(e.response?.data["error"]);
+      return null;
+    } catch (e) {
+      toast(AppStrings.something_went_wrong);
+      printDebug(e.toString());
+      return null;
+    }
+  }
 
   // * change in app password
   static Future<Response?> changePassword(
@@ -104,4 +142,10 @@ class UserProfileService {
       return null;
     }
   }
+}
+
+String? getMimeType(String path) {
+  if (path.endsWith(".png")) return "image/png";
+  if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
+  return null;
 }

@@ -27,11 +27,19 @@ class ApiRepository {
   static Future<Response> post(
     String endpoint, {
     Map<String, dynamic>? jsonBody,
+    FormData? formDataBody,
     bool setBarer = false,
     bool setTempToken = false,
   }) async {
     await _setBearerToken(setBarer, setTempToken);
-    return await _dio.post(endpoint, data: jsonBody);
+    return await _dio.post(
+      endpoint,
+      data: formDataBody ?? jsonBody,
+      options: Options(
+        contentType:
+            formDataBody != null ? "multipart/form-data" : "application/json",
+      ),
+    );
   }
 
   // PUT request
@@ -49,6 +57,7 @@ class ApiRepository {
   static Future<Response> patch(
     String endpoint, {
     Map<String, dynamic>? jsonBody,
+
     bool setBarer = false,
     bool setTempToken = false,
   }) async {
