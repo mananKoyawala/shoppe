@@ -125,6 +125,8 @@ class SignupViewModel extends ChangeNotifier {
               extra: {
                 'isEmailVerification': true,
                 'verificationPlatfrom': email,
+                'isChangePassword': false,
+                'new_password': '',
               },
             );
           }

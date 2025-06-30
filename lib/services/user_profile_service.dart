@@ -63,11 +63,16 @@ class UserProfileService {
   // * Update user profile image
 
   // * change in app password
-  static Future<Response?> changePassword() async {
+  static Future<Response?> changePassword(
+    String otp,
+    String new_password,
+  ) async {
     try {
       final response = await ApiRepository.patch(
         Endpoints.getEndpoint(EndpointType.ChangePassword),
         setBarer: true,
+        setTempToken: true,
+        jsonBody: {"password": new_password, "otp": otp},
       );
 
       return response;

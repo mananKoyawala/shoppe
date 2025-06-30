@@ -14,10 +14,15 @@ class VerifyOtpScreen extends StatefulWidget {
     super.key,
     required this.isEmailVerification,
     required this.verificationPlatfrom,
+    this.new_password = "",
+    this.isChangePassword = false,
   });
 
   final bool isEmailVerification;
   final String verificationPlatfrom;
+  // verify user while change password
+  final bool isChangePassword;
+  final String new_password;
   @override
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
@@ -150,6 +155,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                               });
                               timer();
                               controller.onResendOTP(
+                                widget.isEmailVerification,
                                 widget.verificationPlatfrom,
                               );
                             },
@@ -174,6 +180,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                             context,
                             widget.isEmailVerification,
                             widget.verificationPlatfrom,
+                            widget.isChangePassword,
+                            widget.new_password,
                           ),
                       title: text(
                         text: AppStrings.verify_otp,

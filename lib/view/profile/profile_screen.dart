@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shoppe/core/constants/app_colors.dart';
 import 'package:shoppe/core/package/package_export.dart';
@@ -112,7 +113,47 @@ class ProfileArea extends StatelessWidget {
                   children: [
                     Icon(Icons.info_outline, size: 20),
                     sizeW10(),
-                    text(text: AppStrings.about_me, fontSize: 18),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          text(text: AppStrings.about_me, fontSize: 18),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 28,
+                            color: AppColors.primaryColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            sizeH10(),
+            InkWell(
+              onTap: () {
+                context.push("/changepassword");
+              },
+              child: CP(
+                v: 5,
+                child: Row(
+                  children: [
+                    Icon(Icons.lock_outline, size: 20),
+                    sizeW10(),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          text(text: AppStrings.change_password, fontSize: 18),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 28,
+                            color: AppColors.primaryColor,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -138,6 +179,19 @@ class ProfileArea extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            sizeH10(),
+            sizeH30(),
+            simpleButton(
+              backgroundColor: Colors.white,
+              context,
+              onTap: () {
+                controller.onDeleteClick(context);
+              },
+              border: Border.all(),
+              prefixIcon: Icon(CupertinoIcons.delete, size: 18),
+              prefixIconGap: 10,
+              title: text(text: "Delete account", fontSize: 18),
             ),
             sizeH10(),
           ],

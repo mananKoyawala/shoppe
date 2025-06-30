@@ -40,6 +40,9 @@ class SigninViewModel extends ChangeNotifier {
       final email = emailCtr.text.toLowerCase().trim();
       final password = passCtr.text.trim();
 
+      printDebug(email);
+      printDebug(password);
+
       final response = await LoginService.userLogin(email, password);
 
       if (response != null) {
@@ -51,7 +54,11 @@ class SigninViewModel extends ChangeNotifier {
 
         // User email is not verified.
         if (response.statusCode == 403) {
-          VerifyOtpViewModel().onResendOTP(email);
+          VerifyOtpViewModel().onResendOTP(
+            true,
+            email,
+            isLoginEmailVerification: true,
+          );
 
           if (context.mounted) {
             context.push(
@@ -59,6 +66,8 @@ class SigninViewModel extends ChangeNotifier {
               extra: {
                 'isEmailVerification': true,
                 'verificationPlatfrom': email,
+                'isChangePassword': false,
+                'new_password': '',
               },
             );
           }

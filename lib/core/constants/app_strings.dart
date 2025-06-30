@@ -35,6 +35,8 @@ class AppStrings {
   static const String edit_profile_title = "Keep us updated about you";
   static const String update_profile = "Update profile";
   static const String verify = "Verify";
+  static const String change_password = "Change Password";
+  static const String account_deleted = "Your account is deleted";
   // static const String next = "";
 
   // * Textfield hint text
@@ -65,11 +67,11 @@ class AppStrings {
   // * Textfield error message
   static const String err_email = "Please enter valid email";
   static const String err_password = "Please match password criteria ";
-  static const String err_otp = "Please enter 6 digit OTP";
+  static const String err_otp = "Please enter a 6-digit OTP";
   static const String err_field_required = "Please complete this field";
   static const String err_confrim_password =
       "Password and confirm password must be the same";
-  static const String err_pin_code = "Please enter 6 digit pincode";
-  static const String err_phone_number = "Please enter 10 digit phone number";
-  static const String err_select_gender = "Please select gender";
+  static const String err_pin_code = "Please enter a 6-digit pincode";
+  static const String err_phone_number = "Please enter a 10-digit phone number";
+  static const String err_select_gender = "Please select your gender";
 }

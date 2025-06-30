@@ -137,6 +137,7 @@ class EditProfileViewModel extends ChangeNotifier {
   }
 
   onVerifyEmail(BuildContext context) async {
+    AppLoader.showLoader();
     final response = await VerifyOtpService.resendEmailOTP(
       emailCtr.text.trim(),
     );
@@ -153,14 +154,18 @@ class EditProfileViewModel extends ChangeNotifier {
           extra: {
             'isEmailVerification': true,
             'verificationPlatfrom': emailCtr.text.trim(),
+            'isChangePassword': false,
+            'new_password': '',
           },
         );
         toast("OTP sent");
       }
     }
+    AppLoader.dismissLoader();
   }
 
   onVerifyMobile(BuildContext context) async {
+    AppLoader.showLoader();
     final response = await VerifyOtpService.resendPhoneOTP(
       phoneNumberCtr.text.trim(),
     );
@@ -177,11 +182,14 @@ class EditProfileViewModel extends ChangeNotifier {
           extra: {
             'isEmailVerification': false,
             'verificationPlatfrom': phoneNumberCtr.text.trim(),
+            'isChangePassword': false,
+            'new_password': '',
           },
         );
         toast("OTP sent");
       }
     }
+    AppLoader.dismissLoader();
   }
 
   void setupUserData() {

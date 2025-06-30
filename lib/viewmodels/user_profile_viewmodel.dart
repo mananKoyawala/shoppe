@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shoppe/core/constants/app_colors.dart';
 import 'package:shoppe/core/package/package_export.dart';
 import 'package:shoppe/core/package/utils.dart';
 import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
@@ -27,7 +28,6 @@ class UserProfileViewModel extends ChangeNotifier {
       title: 'Logout',
       message: 'Are you sure you want to logout?',
       okLabel: 'Logout',
-
       cancelLabel: 'Cancel',
       barrierDismissible: false,
       canPop: false,
@@ -43,6 +43,49 @@ class UserProfileViewModel extends ChangeNotifier {
 
   onEditClick(BuildContext context) async {
     context.push("/editprofile");
+  }
+
+  onDeleteClick(BuildContext context) async {
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text('Delete Account'),
+            content: Text(
+              'This action will permanently delete your account. Do you want to continue?',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: text(
+                  text: "Cancel",
+                  fontSize: 16,
+                  textColor: AppColors.primaryColor,
+                ),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: text(
+                  text: "Delete",
+                  fontSize: 18,
+                  fontWeight: 7,
+                  textColor: Colors.red,
+                ),
+              ),
+            ],
+          ),
+    );
+
+    if (result == true && context.mounted) {
+      final res = await UserProfileService.deleteUser();
+      if (res != null && res.statusCode == 200 && context.mounted) {
+        context.read<DashboardViewModel>().resetAll();
+        logoutUser(context);
+        toast(AppStrings.account_deleted);
+      }
+    }
   }
 
   Future<bool> getUserProfileDetails(BuildContext context) async {

@@ -1,5 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:shoppe/viewmodels/change_password_viewmodel.dart';
 import 'package:shoppe/viewmodels/dashboard_viewmodel.dart';
 import 'package:shoppe/viewmodels/edit_profile_viewmodel.dart';
 import 'package:shoppe/viewmodels/onboarding_viewmodel.dart';
@@ -21,6 +22,7 @@ class MyProviders {
       ChangeNotifierProvider(create: (_) => UserProfileViewModel()),
       ChangeNotifierProvider(create: (_) => DashboardViewModel()),
       ChangeNotifierProvider(create: (_) => EditProfileViewModel()),
+      ChangeNotifierProvider(create: (_) => ChangePasswordViewModel()),
     ];
   }
 }

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:shoppe/view/dashboard/dashboard_screen.dart';
 import 'package:shoppe/view/home/home_screen.dart';
+import 'package:shoppe/view/profile/change_password_screen.dart';
 import 'package:shoppe/view/profile/edit_profile_screen.dart';
 import 'package:shoppe/view/onboarding/on_boarding_screen.dart';
 import 'package:shoppe/view/signin/signin_screen.dart';
@@ -50,6 +51,8 @@ final GoRouter router = GoRouter(
         return VerifyOtpScreen(
           verificationPlatfrom: args["verificationPlatfrom"],
           isEmailVerification: args["isEmailVerification"],
+          isChangePassword: args["isChangePassword"],
+          new_password: args["new_password"],
         );
       },
     ),
@@ -58,11 +61,15 @@ final GoRouter router = GoRouter(
       name: "dashboard",
       builder: (context, state) => DashboardScreen(),
     ),
-
     GoRoute(
       path: "/editprofile",
       name: "editprofile",
       builder: (context, state) => EditProfileScreen(),
+    ),
+    GoRoute(
+      path: "/changepassword",
+      name: "changepassword",
+      builder: (context, state) => ChangePasswordScreen(),
     ),
   ],
 );
