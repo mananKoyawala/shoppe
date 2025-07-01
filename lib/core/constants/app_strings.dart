@@ -37,6 +37,7 @@ class AppStrings {
   static const String verify = "Verify";
   static const String change_password = "Change Password";
   static const String account_deleted = "Your account is deleted";
+  static const String delete_account = "Delete account";
   // static const String next = "";
 
   // * Textfield hint text

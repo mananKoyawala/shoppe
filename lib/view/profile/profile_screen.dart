@@ -189,7 +189,7 @@ class ProfileArea extends StatelessWidget {
               border: Border.all(),
               prefixIcon: Icon(CupertinoIcons.delete, size: 18),
               prefixIconGap: 10,
-              title: text(text: "Delete account", fontSize: 18),
+              title: text(text: AppStrings.delete_account, fontSize: 18),
             ),
             sizeH10(),
           ],

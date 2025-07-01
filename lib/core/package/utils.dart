@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shoppe/core/package/package_export.dart';
 import 'package:shoppe/core/sharedpreferences/sharedpreferences.dart';
 import 'package:shoppe/models/user_profile_model.dart';
+import 'package:shoppe/providers/profile_image_notifer.dart';
 import '../../services/navigatorKey.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -103,6 +104,7 @@ Future<void> setUserPreferenceData(
   UserProfileModel user_profile, {
   bool setAccessToken = true,
 }) async {
+  userImageNotifier.value = user_profile.image_url;
   AppPreferences.setUserId(user_profile.id);
   AppPreferences.setUserFirstName(user_profile.first_name);
   AppPreferences.setUserLastName(user_profile.last_name);

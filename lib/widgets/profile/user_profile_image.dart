@@ -25,48 +25,61 @@ class UserProfileImage extends StatelessWidget {
             Container(
               height: height,
               width: height,
-              decoration: BoxDecoration(borderRadius: radius(height)),
+              decoration: BoxDecoration(
+                borderRadius: radius(height),
+                border:
+                    value == ""
+                        ? Border.all(color: AppColors.primaryColor, width: 3)
+                        : null,
+              ),
               child: ClipRRect(
                 borderRadius: radius(height),
-                child: Image.network(
-                  fit: BoxFit.cover,
-                  value,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: radius(height),
-                        ),
-                        child: Icon(
+                child:
+                    value == ""
+                        ? Icon(
                           Icons.person,
-                          color: Colors.white,
-                          size: 80,
-                        ),
-                      ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
-                      child: Container(
-                        decoration: BoxDecoration(
+                          size: getScreenWidth(context) * .2,
                           color: Colors.grey.shade400,
-                          borderRadius: radius(height),
+                        )
+                        : Image.network(
+                          fit: BoxFit.cover,
+                          value,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade400,
+                                  borderRadius: radius(height),
+                                ),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                  size: 80,
+                                ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade400,
+                                  borderRadius: radius(height),
+                                ),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                  size: 80,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 80,
-                        ),
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
             Positioned(

@@ -27,7 +27,7 @@ class UserProfileViewModel extends ChangeNotifier {
     if (pickedFile != null) {
       final image = File(pickedFile.path);
       printDebug(image);
-      // TODO : check jpg, jpeg or png
+      AppLoader.showLoader();
       final response = await UserProfileService.uploadUserProfileImage(image);
       if (response != null && response.statusCode == 200) {
         if (response.data["data"]["user_image_updated"]) {
@@ -40,6 +40,7 @@ class UserProfileViewModel extends ChangeNotifier {
           toast("Failed to upload image");
         }
       }
+      AppLoader.dismissLoader();
     }
   }
 

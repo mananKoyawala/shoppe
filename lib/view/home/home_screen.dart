@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       onBack: () {
         if (_lastBackPressed == null ||
             DateTime.now().difference(_lastBackPressed!) >
-                const Duration(seconds: 5)) {
+                const Duration(seconds: 2)) {
           // Notify user to press back again within the time limit
           toast("Press back again to exit");
           _lastBackPressed = DateTime.now();
